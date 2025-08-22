@@ -48,6 +48,7 @@ jobs:
       with:
           organization: debashistest
           projectKey: debashisCTS_spring-boot-restapi
+          args: -Dsonar.verbose=true
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -64,5 +65,6 @@ jobs:
             -Dsonar.java.binaries=target/classes \
             -Dsonar.branch.name=${{ github.ref_name }} \
             -Dsonar.branch.target=main
+            -Dsonar.verbose=true
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
