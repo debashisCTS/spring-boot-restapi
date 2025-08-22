@@ -57,6 +57,9 @@ public class StudentResource {
                                                           @PathVariable long id) {
 
         System.out.println("Trying to find student by id");
+        System.out.println("Trying to find student by id- newline");
+        System.out.println("Trying to find student by id- newline");
+        System.out.println("Trying to find student by id- newline");
         Optional<Student> studentDetails = studentRepository.findById(id);
 
         if (studentDetails.isEmpty())
