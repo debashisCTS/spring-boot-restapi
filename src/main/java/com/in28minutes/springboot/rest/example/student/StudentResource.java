@@ -20,11 +20,13 @@ public class StudentResource {
 
     @GetMapping("/students")
     public List<Student> retrieveAllStudents() {
+        System.out.println("Trying to find all students");
         return studentRepository.findAll();
     }
 
     @GetMapping("/students/{id}")
     public Student retrieveStudent(@PathVariable long id) {
+        System.out.println("Trying to find student by id");
         Optional<Student> student = studentRepository.findById(id);
 
         if (student.isEmpty())
