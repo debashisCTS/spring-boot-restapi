@@ -21,6 +21,7 @@ public class StudentResource {
     @GetMapping("/students")
     public List<Student> retrieveAllStudents() {
         System.out.println("Trying to find all students");
+        System.out.println("Trying to find all students - main br commit1");
         return studentRepository.findAll();
     }
 
