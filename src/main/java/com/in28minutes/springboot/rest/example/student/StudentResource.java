@@ -20,13 +20,14 @@ public class StudentResource {
 
     @GetMapping("/students")
     public List<Student> retrieveAllStudents() {
+        system.out.println("from students api");
         return studentRepository.findAll();
     }
 
     @GetMapping("/students/{id}")
     public Student retrieveStudent(@PathVariable long id) {
         Optional<Student> student = studentRepository.findById(id);
-
+        system.out.println("from studentByID api");
         if (student.isEmpty())
             throw new StudentNotFoundException("id-" + id);
 
