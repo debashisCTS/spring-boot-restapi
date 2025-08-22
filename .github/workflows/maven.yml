@@ -30,3 +30,17 @@ jobs:
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml
 
+    - name: Cache SonarCloud packages
+      uses: actions/cache@v3
+      with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v2
+      with:
+          organization: your-org-key     # Replace with your actual SonarCloud org key
+          projectKey: your-project-key   # Replace with your actual SonarCloud project key
+      env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
