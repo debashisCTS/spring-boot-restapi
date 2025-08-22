@@ -37,6 +37,11 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
+     # For feature branch comparision fetch main from origin as checkput step shallow clone current branch
+    - name: Fetch base branch (main) for Sonar differential analysis
+      if: startsWith(github.ref_name, 'feature')
+      run: git fetch origin main
+
     # For PRs and regular branches (main, develop) — standard SonarCloud scan
     - name: SonarCloud Scan
       if: github.event_name == 'pull_request' || github.ref_name == 'main' 
@@ -47,10 +52,7 @@ jobs:
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      # For feature branch comparision fetch main from origin as checkput step shallow clone current branch
-    - name: Fetch base branch (main) for Sonar differential analysis
-      if: startsWith(github.ref_name, 'feature')
-      run: git fetch origin main
+     
 
       # For direct pushes to feature/* — manual scan with branch.target=develop
     - name: SonarCloud Scan for Feature Branches 
