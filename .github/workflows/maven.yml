@@ -37,10 +37,26 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
+    # For PRs and regular branches (main, develop) — standard SonarCloud scan
     - name: SonarCloud Scan
+      if: github.event_name == 'pull_request' || github.ref_name == 'main' 
       uses: SonarSource/sonarcloud-github-action@v2
       with:
-          organization: debashistest     # Replace with your actual SonarCloud org key
-          projectKey: debashisCTS_spring-boot-restapi   # Replace with your actual SonarCloud project key
+          organization: debashistest
+          projectKey: debashisCTS_spring-boot-restapi
+      env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # For direct pushes to feature/* — manual scan with branch.target=develop
+    - name: SonarCloud Scan for Feature Branches 
+      if: startsWith(github.ref_name, 'feature')
+      run: |
+          mvn verify sonar:sonar \
+            -Dsonar.projectKey=debashisCTS_spring-boot-restapi \
+            -Dsonar.organization=debashistest \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.java.binaries=target/classes \
+            -Dsonar.branch.name=${{ github.ref_name }} \
+            -Dsonar.branch.target=main
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
