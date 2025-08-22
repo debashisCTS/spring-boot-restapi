@@ -56,6 +56,7 @@ public class StudentResource {
     public ResponseEntity<@NonNull Student> updateStudent(@RequestBody Student student,
                                                           @PathVariable long id) {
 
+        System.out.println("Trying to find student by id");
         Optional<Student> studentDetails = studentRepository.findById(id);
 
         if (studentDetails.isEmpty())
