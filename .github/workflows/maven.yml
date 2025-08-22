@@ -37,6 +37,11 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
+     # Get latest commit hash of main branch
+    - name: Get main branch commit hash
+      if: github.ref_name == 'main'
+      run: echo "SONAR_PROJECT_VERSION=$(git rev-parse HEAD)" >> $GITHUB_ENV
+     
      # For feature branch comparision fetch main from origin as checkput step shallow clone current branch
     - name: Fetch base branch (main) for Sonar differential analysis
       run: git fetch origin main
@@ -48,7 +53,7 @@ jobs:
       with:
           organization: debashistest
           projectKey: debashisCTS_spring-boot-restapi
-          args: -Dsonar.verbose=true
+          args: -Dsonar.verbose=true -Dsonar.projectVersion=${{ env.SONAR_PROJECT_VERSION }}
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -64,7 +69,7 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.java.binaries=target/classes \
             -Dsonar.branch.name=${{ github.ref_name }} \
-            -Dsonar.branch.target=main
+            -Dsonar.branch.target=main \
             -Dsonar.verbose=true
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
