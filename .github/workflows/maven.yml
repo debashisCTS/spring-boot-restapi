@@ -44,14 +44,25 @@ jobs:
      
 
 
-    # For PRs and regular branches (main, develop) — standard SonarCloud scan
-    - name: SonarCloud Scan
-      if: github.event_name == 'pull_request' || github.ref_name == 'main' 
+    # For regular branches (main, develop) — standard SonarCloud scan
+    - name: SonarCloud Scan - Main
+      if: github.ref_name == 'main' 
       uses: SonarSource/sonarcloud-github-action@v2
       with:
           organization: debashistest
           projectKey: debashisCTS_spring-boot-restapi
           args: -Dsonar.verbose=true -Dsonar.projectVersion=${{ env.SONAR_PROJECT_VERSION }}
+      env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+    # For PR — standard SonarCloud scan
+    - name: SonarCloud Scan - PR
+      if: github.event_name == 'pull_request' 
+      uses: SonarSource/sonarcloud-github-action@v2
+      with:
+          organization: debashistest
+          projectKey: debashisCTS_spring-boot-restapi
+          args: -Dsonar.verbose=true
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
