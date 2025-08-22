@@ -40,7 +40,7 @@ jobs:
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v2
       with:
-          organization: your-org-key     # Replace with your actual SonarCloud org key
-          projectKey: your-project-key   # Replace with your actual SonarCloud project key
+          organization: debashistest     # Replace with your actual SonarCloud org key
+          projectKey: debashisCTS_spring-boot-restapi   # Replace with your actual SonarCloud project key
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
