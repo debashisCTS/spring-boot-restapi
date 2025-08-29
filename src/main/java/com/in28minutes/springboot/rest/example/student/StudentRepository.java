@@ -6,5 +6,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentRepository extends JpaRepository<@NonNull Student, @NonNull Long> {
+
+//first commit from feature branch
+//second commit from feature branch - after hotfix commit
+//third commit from feature branch - after hotfix PR merge to main
+//fourth commit from feature branch - after hotfix2 creation
 // commit from hotfix branch
+//fifth commit from feature branch - after hotfix2 merge to main
 }
