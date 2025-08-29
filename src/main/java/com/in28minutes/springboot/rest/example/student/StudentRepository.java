@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentRepository extends JpaRepository<@NonNull Student, @NonNull Long> {
-
+// commit from hotfix branch
 }
